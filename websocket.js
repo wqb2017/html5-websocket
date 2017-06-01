@@ -6,21 +6,35 @@
   var isArray = function(o){
     return Object.prototype.toString.call(o)==='[object Array]';
   };
-  var reader = {
-    readAs: function(type,blob,cb){
-      var r = new FileReader();
-      r.onloadend = function(){
-        if(typeof(cb) === 'function') {
-          cb.call(r,r.result);
-        }
-      };
-      try{
-        r['readAs'+type](blob);
-      }catch(e){}
+  //二进制数据处理
+  var parseBlob = function (type,blob,cb) {
+    var r = new FileReader();
+    r.onloadend = function(){
+      if(typeof(cb) === 'function') {
+        cb.call(r,r.result);
+      }
+    };
+    try{
+      r['readAs'+type](blob);
+    }catch(e){
+
     }
   };
-  //主函数
+  /**
+   *
+   * @param opts {object}
+   * @param opts.utl 请求地址
+   * @param opts.datas 请求参数 必须为字符串或者数组格式
+   * @param opts.success 成功回调函数
+   * @param opts.close 是否关闭TCP连接 默认为false=不关闭
+   */
   win.createWebsocket = function(opts) {
+    opts = {
+      url : opts.url || "",
+      datas : opts.datas || "",
+      close : opts.close || false ,
+      success : opts.success || ""
+    };
     // 创建安全WebSocket 连接（wss）
     var ws = new WebSocket(opts.url);
     // 连接建立时调用
@@ -43,7 +57,7 @@
       if (msg.data instanceof Blob) {
         // 处理二进制信息
         var blob = msg.data;
-        reader.readAs('Text',blob.slice(0,blob.size,'text/plain;charset=UTF-8'),function(result){
+        parseBlob('Text',blob.slice(0,blob.size,'text/plain;charset=UTF-8'),function(result){
           opts.success(result);
         });
       } else {// 处理文本信息
@@ -57,7 +71,9 @@
     };
     // 关闭时调用
     ws.onclose = function (e) {
-
+      if (opts.close){
+        ws.close(); //关闭TCP连接
+      }
     };
   }
 })(window);

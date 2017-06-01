@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>websocket通信</title>
+  <script src="websocket.js"></script>
+</head>
+<body>
+<script>
+  window.onload = function () {
+    createWebsocket({
+      url:'ws://192.168.3.147:8080/ws',
+      datas:["001", "< ", " wangqibiao", "您好", ">"],
+      success:function (data) {
+        console.log("hdhdh=" + data);
+      }
+    });
+  };
+</script>
+</body>
+</html>

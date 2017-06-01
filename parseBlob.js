@@ -20,15 +20,15 @@ function processBlob(blob){
   //前面16位short
   reader.readAs('ArrayBuffer',blob.slice(0,2),function(arr){
     shortVar = (new Int16Array(arr))[0];
-    // console.log(shortVar);
+    console.log(shortVar);
   });
   //后32位int
   reader.readAs('ArrayBuffer',blob.slice(2,6),function(arr){
     intVar = (new Int32Array(arr))[0];
-    // console.log(intVar);
+    console.log(intVar);
   });
   //string
-  reader.readAs('Text',blob.slice(0,blob.size,'text/plain;charset=UTF-8'),function(result){
+  reader.readAs('Text',blob.slice(6,blob.size,'text/plain;charset=UTF-8'),function(result){
     stringVar = result;
     console.log(stringVar);
   });

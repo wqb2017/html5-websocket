@@ -12,7 +12,7 @@
 ```js
 //调用方式
  createWebsocket({
-      url:'ws://192.168.3.147:8080/ws',//请求地址
+      url:'ws://192.168.8.888:8080',//请求地址
       datas:["001", "< ", " wangqibiao", "您好", ">"],//请求数据
       success:function (data) {//成功回调
         console.log("hdhdh=" + data);

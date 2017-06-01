@@ -1,10 +1,13 @@
 # html5-websocket
 关于客户端websocket通信，二进制转换问题。
 
+```text
 ## 目录结构说明
 |—index.html #入口文件
 |—websocket.js #websocket文件
 |—parseBlob.js #Blob数据转换成文本
+```
+
 
 ```js
 //调用方式
